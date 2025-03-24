@@ -1,0 +1,381 @@
+createOrReplace
+
+	table 'Time Analysis'
+		lineageTag: da6a2843-bcb0-46f9-8007-2a93676fc6e8
+
+		calculationGroup
+
+			calculationItem 'Current Year' = SELECTEDMEASURE ()
+
+				formatStringDefinition = SELECTEDMEASUREFORMATSTRING ()
+
+			calculationItem 'Previous Year' =
+					VAR fiscalYear =
+					    MAX ( 'Date'[Fiscal Year] ) - 1
+					VAR Weekstobeconsider =
+					    DISTINCT (
+					        SELECTCOLUMNS (
+					            FILTER ( 'Date', 'Date'[RelativeFiscalWeek] >= 0 ),
+					            "Weeks", 'Date'[Fiscal Week]
+					        )
+					    )
+					VAR fiscalweeks =
+					    FILTER (
+					        VALUES ( 'Date'[Fiscal Week] ),
+					        'Date'[Fiscal Week] IN Weekstobeconsider
+					    )
+					RETURN
+					    IF (
+					        ISINSCOPE ( 'Date'[Date] ) || ISINSCOPE ( 'Date'[Day Of Month] ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            SAMEPERIODLASTYEAR ( 'Date'[Date] ),
+					            REMOVEFILTERS ( Cohort[Cohort] )
+					        ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            REMOVEFILTERS ( 'Date' ),
+					            REMOVEFILTERS ( Cohort[Cohort] ),
+					            'Date'[Fiscal Year] = fiscalYear,
+					            'Date'[Fiscal Week] IN fiscalweeks
+					        )
+					    )
+
+				formatStringDefinition = SELECTEDMEASUREFORMATSTRING ()
+
+			calculationItem 'Actual PY BPS' =
+					VAR fiscalYear =
+					    MAX ( 'Date'[Fiscal Year] ) - 1
+					VAR Weekstobeconsider =
+					    DISTINCT (
+					        SELECTCOLUMNS (
+					            FILTER ( 'Date', 'Date'[RelativeFiscalWeek] >= 0 ),
+					            "Weeks", 'Date'[Fiscal Week]
+					        )
+					    )
+					VAR fiscalweeks =
+					    FILTER (
+					        VALUES ( 'Date'[Fiscal Week] ),
+					        'Date'[Fiscal Week] IN Weekstobeconsider
+					    )
+					VAR PY =
+					    --CALCULATE(SELECTEDMEASURE(), 'Time Analysis'[Time Analysis] = "Previous Year")
+					    IF (
+					        ISINSCOPE ( 'Date'[Date] ) || ISINSCOPE ( 'Date'[Day Of Month] ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            SAMEPERIODLASTYEAR ( 'Date'[Date] ),
+					            REMOVEFILTERS ( Cohort[Cohort] )
+					        ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            REMOVEFILTERS ( 'Date' ),
+					            REMOVEFILTERS ( Cohort[Cohort] ),
+					            'Date'[Fiscal Year] = fiscalYear,
+					            'Date'[Fiscal Week] IN fiscalweeks
+					        )
+					    )
+					RETURN
+					    IF (
+					        SELECTEDVALUE ( 'Measure Selection'[Metrics Name] ) = "Para Comp BPS"
+					            || SELECTEDMEASURENAME () = "Para Comp BPS",
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            REMOVEFILTERS ( 'Date' ),
+					            REMOVEFILTERS ( Cohort[Cohort] ),
+					            'Date'[Fiscal Year] = fiscalYear,
+					            'Date'[Fiscal Week] IN fiscalweeks
+					        )
+					    )
+
+				formatStringDefinition = SELECTEDMEASUREFORMATSTRING ()
+
+			calculationItem Growth =
+					VAR _SelectedName =
+					    SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+					VAR _selectedmeasurename =
+					    SELECTEDVALUE ( 'Measure Selection'[Metrics Name] )
+					VAR fiscalYear =
+					    MAX ( 'Date'[Fiscal Year] ) - 1
+					VAR Weekstobeconsider =
+					    DISTINCT (
+					        SELECTCOLUMNS (
+					            FILTER ( 'Date', 'Date'[RelativeFiscalWeek] >= 0 ),
+					            "Weeks", 'Date'[Fiscal Week]
+					        )
+					    )
+					VAR fiscalweeks =
+					    FILTER (
+					        VALUES ( 'Date'[Fiscal Week] ),
+					        'Date'[Fiscal Week] IN Weekstobeconsider
+					    )
+					VAR PY =
+					    IF (
+					        ISINSCOPE ( 'Date'[Date] ) || ISINSCOPE ( 'Date'[Day Of Month] ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            SAMEPERIODLASTYEAR ( 'Date'[Date] ),
+					            REMOVEFILTERS ( Cohort[Cohort] )
+					        ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            REMOVEFILTERS ( 'Date' ),
+					            REMOVEFILTERS ( Cohort[Cohort] ),
+					            'Date'[Fiscal Year] = fiscalYear,
+					            'Date'[Fiscal Week] IN fiscalweeks
+					        )
+					    )
+					RETURN
+					    IF (
+					        CONTAINSSTRING ( SELECTEDMEASURENAME (), "title" ),
+					        SELECTEDMEASURE (),
+					        IF (
+					            CONTAINSSTRING ( SELECTEDMEASURENAME (), "%" )
+					                || CONTAINSSTRING ( _selectedmeasurename, "%" )
+					                || CONTAINSSTRING ( _SelectedName, "%" ),
+					            IF ( SELECTEDMEASURE () <> BLANK (), ( SELECTEDMEASURE () - PY ) * 100 * 100 ),
+					            IF ( SELECTEDMEASURE () <> BLANK (), DIVIDE ( SELECTEDMEASURE (), PY ) - 1 )
+					        )
+					    )
+
+				formatStringDefinition =
+						VAR _SelectedName =
+						    SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+						VAR _selectedmeasurename =
+						    SELECTEDVALUE ( 'Measure Selection'[Metrics Name] )
+						RETURN
+						    SWITCH (
+						        TRUE (),
+						        ISSELECTEDMEASURE ( [Zero Value] )
+						            || ISSELECTEDMEASURE ( [Tier Selection Measure] ),
+						            IF (
+						                HASONEVALUE ( 'Tier Measure Selection'[Tier Measure Order] )
+						                    && CONTAINSSTRING ( _SelectedName, "%" ),
+						                "0.0 bps;(0.0 bps);0.0 bps",
+						                "0.0%;(0.0%);0.0%"
+						            ),
+						        HASONEVALUE ( 'Measure Selection'[Measure Order] )
+						            && _selectedmeasurename = "Para Comp BPS", "0.0 bps;(0.0 bps);0.0 bps",
+						        HASONEVALUE ( 'Measure Selection'[Measure Order] )
+						            && CONTAINSSTRING ( _selectedmeasurename, "%" ), "0.0 bps;(0.0 bps);0.0 bps",
+						        CONTAINSSTRING ( SELECTEDMEASURENAME (), "%" ), "0.0 bps;(0.0 bps);0.0 bps",
+						        "0.0%;(0.0%);0.0%"
+						    )
+
+			calculationItem YoY =
+					VAR _SelectedName =
+					    SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+					VAR _selectedmeasurename =
+					    SELECTEDVALUE ( 'Measure Selection'[Metrics Name] )
+					VAR fiscalYear =
+					    MAX ( 'Date'[Fiscal Year] ) - 1
+					VAR Weekstobeconsider =
+					    DISTINCT (
+					        SELECTCOLUMNS (
+					            FILTER ( 'Date', 'Date'[RelativeFiscalWeek] >= 0 ),
+					            "Weeks", 'Date'[Fiscal Week]
+					        )
+					    )
+					VAR fiscalweeks =
+					    FILTER (
+					        VALUES ( 'Date'[Fiscal Week] ),
+					        'Date'[Fiscal Week] IN Weekstobeconsider
+					    )
+					VAR PY =
+					    --CALCULATE(SELECTEDMEASURE(), 'Time Analysis'[Time Analysis] = "Previous Year")
+					    IF (
+					        ISINSCOPE ( 'Date'[Date] ) || ISINSCOPE ( 'Date'[Day Of Month] ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            SAMEPERIODLASTYEAR ( 'Date'[Date] ),
+					            REMOVEFILTERS ( Cohort[Cohort] )
+					        ),
+					        CALCULATE (
+					            SELECTEDMEASURE (),
+					            REMOVEFILTERS ( 'Date' ),
+					            REMOVEFILTERS ( Cohort[Cohort] ),
+					            'Date'[Fiscal Year] = fiscalYear,
+					            'Date'[Fiscal Week] IN fiscalweeks
+					        )
+					    )
+					VAR Result =
+					    SWITCH (
+					        TRUE (),
+					        SELECTEDVALUE ( 'Measure Selection'[Metrics Name] ) = "Para Comp BPS"
+					            && SELECTEDMEASURE () <> BLANK (), ( SELECTEDMEASURE () - PY ),
+					        CONTAINSSTRING ( SELECTEDMEASURENAME (), "%" )
+					            || CONTAINSSTRING ( _selectedmeasurename, "%" )
+					            || CONTAINSSTRING ( _SelectedName, "%" )
+					                && SELECTEDMEASURE () <> BLANK (),
+					            ( SELECTEDMEASURE () - PY ) * 100 * 100,
+					        SELECTEDMEASURE () <> BLANK (), DIVIDE ( SELECTEDMEASURE (), PY ) - 1
+					    )
+					RETURN
+					    SWITCH (
+					        TRUE (),
+					        SELECTEDMEASURENAME () = "YoY% FontColor", SELECTEDMEASURE (),
+					        SELECTEDMEASURE () <> BLANK (), Result
+					    )
+
+				formatStringDefinition =
+						VAR _SelectedName =
+						    SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+						VAR _selectedmeasurename =
+						    SELECTEDVALUE ( 'Measure Selection'[Metrics Name] )
+						RETURN
+						    SWITCH (
+						        TRUE (),
+						        ISSELECTEDMEASURE ( [Zero Value] )
+						            || ISSELECTEDMEASURE ( [Tier Selection Measure] ),
+						            IF (
+						                HASONEVALUE ( 'Tier Measure Selection'[Tier Measure Order] )
+						                    && CONTAINSSTRING ( _SelectedName, "%" ),
+						                "0.0 bps;(0.0 bps);0.0 bps",
+						                "0.0%;(0.0%);0.0%"
+						            ),
+						        HASONEVALUE ( 'Measure Selection'[Measure Order] )
+						            && _selectedmeasurename = "Para Comp BPS", "0.0 bps;(0.0 bps);0.0 bps",
+						        HASONEVALUE ( 'Measure Selection'[Measure Order] )
+						            && CONTAINSSTRING ( _selectedmeasurename, "%" ), "0.0 bps;(0.0 bps);0.0 bps",
+						        CONTAINSSTRING ( SELECTEDMEASURENAME (), "%" ), "0.0 bps;(0.0 bps);0.0 bps",
+						        "0.0%;(0.0%);0.0%"
+						    )
+
+			calculationItem 'YoY Total Revenue' =
+					IF (
+					    ISINSCOPE ( 'Date'[Fiscal Week] ),
+					    BLANK (),
+					    IF (
+					        SELECTEDMEASURE () <> BLANK (),
+					        VAR fiscalYear =
+					            MAX ( 'Date'[Fiscal Year] ) - 1
+					        VAR Weekstobeconsider =
+					            DISTINCT (
+					                SELECTCOLUMNS (
+					                    FILTER ( 'Date', 'Date'[RelativeFiscalWeek] >= 0 ),
+					                    "Weeks", 'Date'[Fiscal Week]
+					                )
+					            )
+					        VAR fiscalweeks =
+					            FILTER (
+					                VALUES ( 'Date'[Fiscal Week] ),
+					                'Date'[Fiscal Week] IN Weekstobeconsider
+					            )
+					        VAR PY =
+					            IF (
+					                ISINSCOPE ( 'Date'[Date] ) || ISINSCOPE ( 'Date'[Day Of Month] ),
+					                CALCULATE (
+					                    SELECTEDMEASURE (),
+					                    SAMEPERIODLASTYEAR ( 'Date'[Date] ),
+					                    REMOVEFILTERS ( Cohort[Cohort] )
+					                ),
+					                CALCULATE (
+					                    SELECTEDMEASURE (),
+					                    REMOVEFILTERS ( 'Date' ),
+					                    REMOVEFILTERS ( Cohort[Cohort] ),
+					                    'Date'[Fiscal Year] = fiscalYear,
+					                    'Date'[Fiscal Week] IN fiscalweeks
+					                )
+					            )
+					        RETURN
+					            DIVIDE ( SELECTEDMEASURE (), PY ) - 1
+					    )
+					)
+
+				formatStringDefinition = "0.0%;(0.0%);0.0%"
+
+			calculationItem Status =
+					IF (
+					    CONTAINSSTRING ( SELECTEDMEASURENAME (), "title" ),
+					    SELECTEDMEASURE (),
+					    IF (
+					        SELECTEDMEASURENAME () = "Tier Selection Measure",
+					        SWITCH (
+					            TRUE (),
+					            SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+					                IN SELECTCOLUMNS (
+					                    FILTER ( 'Status Values', 'Status Values'[Status] = "Positive" ),
+					                    'Status Values'[Measure]
+					                ),
+					                SWITCH (
+					                    TRUE (),
+					                    CALCULATE (
+					                        [Tier Selection Measure],
+					                        'Time Analysis'[Time Analysis] = "Growth"
+					                    ) > 0, "🟢",
+					                    CALCULATE (
+					                        [Tier Selection Measure],
+					                        'Time Analysis'[Time Analysis] = "Growth"
+					                    ) < 0, "🔴",
+					                    "🟡"
+					                ),
+					            SELECTEDVALUE ( 'Tier Measure Selection'[Tier Metrics Name] )
+					                IN SELECTCOLUMNS (
+					                    FILTER ( 'Status Values', 'Status Values'[Status] = "Negative" ),
+					                    'Status Values'[Measure]
+					                ),
+					                SWITCH (
+					                    TRUE (),
+					                    CALCULATE (
+					                        [Tier Selection Measure],
+					                        'Time Analysis'[Time Analysis] = "Growth"
+					                    ) < 0, "🟢",
+					                    CALCULATE (
+					                        [Tier Selection Measure],
+					                        'Time Analysis'[Time Analysis] = "Growth"
+					                    ) > 0, "🔴",
+					                    "🟡"
+					                ),
+					            "⚪"
+					        ),
+					        SWITCH (
+					            TRUE (),
+					            SELECTEDMEASURENAME ()
+					                IN SELECTCOLUMNS (
+					                    FILTER ( 'Status Values', 'Status Values'[Status] = "Positive" ),
+					                    'Status Values'[Measure]
+					                ),
+					                SWITCH (
+					                    TRUE (),
+					                    CALCULATE ( SELECTEDMEASURE (), 'Time Analysis'[Time Analysis] = "Growth" ) > 0, "🟢",
+					                    CALCULATE ( SELECTEDMEASURE (), 'Time Analysis'[Time Analysis] = "Growth" ) < 0, "🔴",
+					                    "🟡"
+					                ),
+					            SELECTEDMEASURENAME ()
+					                IN SELECTCOLUMNS (
+					                    FILTER ( 'Status Values', 'Status Values'[Status] = "Negative" ),
+					                    'Status Values'[Measure]
+					                ),
+					                SWITCH (
+					                    TRUE (),
+					                    CALCULATE ( SELECTEDMEASURE (), 'Time Analysis'[Time Analysis] = "Growth" ) < 0, "🟢",
+					                    CALCULATE ( SELECTEDMEASURE (), 'Time Analysis'[Time Analysis] = "Growth" ) > 0, "🔴",
+					                    "🟡"
+					                ),
+					            "⚪"
+					        )
+					    )
+					)
+
+		column 'Time Analysis'
+			dataType: string
+			lineageTag: 1a0de86c-d82c-47f1-97d0-931c324d6f34
+			summarizeBy: none
+			sourceColumn: Name
+			sortByColumn: Ordinal
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column Ordinal
+			dataType: int64
+			formatString: 0
+			lineageTag: 27caa342-fde6-4eaa-abe1-2d85e6ab5c56
+			summarizeBy: none
+			sourceColumn: Ordinal
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
