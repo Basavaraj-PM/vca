@@ -1,0 +1,709 @@
+createOrReplace
+
+	table Date
+		lineageTag: 16151a5f-2a03-49fc-9fcc-2c0517bc965c
+		dataCategory: Time
+
+		column 'Date Name'
+			dataType: string
+			lineageTag: c4a575bb-b043-4897-9308-82f522e845eb
+			summarizeBy: none
+			sourceColumn: Date Name
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column Date
+			dataType: dateTime
+			isKey
+			formatString: Long Date
+			lineageTag: 945b3801-ebc3-431d-a0eb-5eeca6909cc1
+			summarizeBy: none
+			sourceColumn: Date
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation UnderlyingDateTimeDataType = Date
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column DayNameOfWeekKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			isAvailableInMdx: false
+			lineageTag: 11db0fd8-3a80-4f72-a978-faeea72539fc
+			summarizeBy: count
+			sourceColumn: DayNameOfWeekKey
+
+			changedProperty = IsHidden
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["PERF_UNUSED_COLUMNS"]}
+
+		column 'Day Of Month'
+			dataType: int64
+			formatString: 0
+			lineageTag: e3871f86-211f-447d-8370-a6b315bd8d8d
+			summarizeBy: sum
+			sourceColumn: Day Of Month
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Day Name Of Week'
+			dataType: string
+			lineageTag: 4a721d30-1221-423a-ab6f-e7f9b4caf79f
+			summarizeBy: none
+			sourceColumn: Day Name Of Week
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Day Of Week Abbr'
+			dataType: string
+			lineageTag: ee41fcfe-2a9d-46c4-98eb-95fbbd0c6818
+			summarizeBy: none
+			sourceColumn: Day Of Week Abbr
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column DimDateKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			isAvailableInMdx: false
+			lineageTag: 34ece722-6cc5-4e18-b67a-197ae0d66a48
+			summarizeBy: none
+			sourceColumn: DimDateKey
+
+			changedProperty = IsHidden
+
+			annotation SummarizationSetBy = Automatic
+
+		column FiscalYearPeriodKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: c036d14c-e922-4427-9134-09ba620ed6cc
+			summarizeBy: count
+			sourceColumn: FiscalYearPeriodKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Period'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: d4d7ac66-8c92-46e0-8447-c78464a6ec2a
+			summarizeBy: none
+			sourceColumn: Fiscal Period
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column PeriodSortingKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: a517c776-8cce-496e-918f-a9e8e88502c0
+			summarizeBy: count
+			sourceColumn: PeriodSortingKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Date Display'
+			dataType: string
+			lineageTag: d8f4a29a-7255-46ad-9ade-ae7ca4d51b32
+			summarizeBy: none
+			sourceColumn: Date Display
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Year and Period'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 9042a529-d0cf-45b2-b7c8-709f8bcecfc7
+			summarizeBy: none
+			sourceColumn: Fiscal Year and Period
+			sortByColumn: FiscalYearPeriodKey
+
+			changedProperty = SortByColumn
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Year and Period Name'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 41749f2b-20d8-4617-b1ae-2a52e7c2c169
+			summarizeBy: none
+			sourceColumn: Fiscal Year and Period Name
+			sortByColumn: FiscalYearPeriodKey
+
+			changedProperty = SortByColumn
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Calendar Period'
+			dataType: string
+			lineageTag: c7353952-cb7e-4453-9bca-e7f311adef96
+			summarizeBy: none
+			sourceColumn: Calendar Period
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Period Short Name'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 16d28ef2-4d43-4f64-82aa-1a21865aafb9
+			summarizeBy: none
+			sourceColumn: Fiscal Period Short Name
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Year and Period Short Name'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 34fac9ff-02e6-4950-b18e-ac09b1732fcd
+			summarizeBy: none
+			sourceColumn: Fiscal Year and Period Short Name
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column FiscalYearQuarterKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: ab18a24f-0129-4542-8a28-85c2af22f261
+			summarizeBy: count
+			sourceColumn: FiscalYearQuarterKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Fiscal Quarter'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 20cf304e-391e-4130-9d93-cdde10ecf6a6
+			summarizeBy: none
+			sourceColumn: Fiscal Quarter
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column FiscalYearWeekKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: 3f31e8b7-f24b-4066-9dc6-145c3ff1df20
+			summarizeBy: count
+			sourceColumn: FiscalYearWeekKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Week'
+			dataType: string
+			displayFolder: Fiscal
+			lineageTag: 4b2a586e-c21f-4f95-8bb1-77c2a3e5e108
+			summarizeBy: none
+			sourceColumn: Fiscal Week
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal Year'
+			dataType: int64
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: 598469f4-7d3f-4890-8d92-46643ec79e17
+			summarizeBy: sum
+			sourceColumn: Fiscal Year
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Month AbbrKey'
+			dataType: int64
+			formatString: 0
+			lineageTag: 7daa4849-d7d8-4e17-90a2-2f0cd862fdf1
+			summarizeBy: count
+			sourceColumn: Month AbbrKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Month Abbr'
+			dataType: string
+			lineageTag: a4da74b1-dcb7-4713-8ca4-cfe519141eba
+			summarizeBy: none
+			sourceColumn: Month Abbr
+
+			changedProperty = SortByColumn
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Month Name'
+			dataType: string
+			lineageTag: e42eab09-ac83-496d-9188-c97eef492104
+			summarizeBy: none
+			sourceColumn: Month Name
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Pay Period Name'
+			dataType: string
+			displayFolder: Payroll
+			lineageTag: fea73c93-bbb3-4b0b-aedd-eeaf036dafb5
+			summarizeBy: none
+			sourceColumn: Pay Period Name
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column PayPeriodKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			isAvailableInMdx: false
+			displayFolder: Payroll
+			lineageTag: 432c9720-9a6d-45a6-b06b-85554499e4bc
+			summarizeBy: count
+			sourceColumn: PayPeriodKey
+
+			changedProperty = IsHidden
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["PERF_UNUSED_COLUMNS"]}
+
+		column PayrollYearWeekKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Payroll
+			lineageTag: 8097928b-5e6d-45d0-905b-57f873d0fe25
+			summarizeBy: count
+			sourceColumn: PayrollYearWeekKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Payroll Year Week'
+			dataType: string
+			displayFolder: Payroll
+			lineageTag: 2293d7c0-151c-45a9-a8c0-ca8b65a5d739
+			summarizeBy: none
+			sourceColumn: Payroll Year Week
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Payroll Year'
+			dataType: int64
+			formatString: 0
+			displayFolder: Payroll
+			lineageTag: e22c0929-cfa0-4a48-80cc-9ef978128cc4
+			summarizeBy: sum
+			sourceColumn: Payroll Year
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column YearMonthKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: e8697f55-c5a6-455d-8cb6-e393a4627e88
+			summarizeBy: count
+			sourceColumn: YearMonthKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column YearQuarterKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: 0bb74720-1f1e-496e-aa6c-865dad96adab
+			summarizeBy: count
+			sourceColumn: YearQuarterKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Year Quarter'
+			dataType: string
+			lineageTag: b77d6569-0210-41ae-8fbb-3a556af78c71
+			summarizeBy: none
+			sourceColumn: Year Quarter
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column YearWeekOfMonthKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: a434845c-c4fc-4bd8-8c97-a26265e735bc
+			summarizeBy: count
+			sourceColumn: YearWeekOfMonthKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Year Week Of Month'
+			dataType: string
+			lineageTag: e2d70101-9a40-46fc-8c63-462f092e274c
+			summarizeBy: none
+			sourceColumn: Year Week Of Month
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column YearWeekOfYearKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: 30ea68bd-fe23-470c-b670-c5a0e9a9d0f1
+			summarizeBy: count
+			sourceColumn: YearWeekOfYearKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column 'Year Week Of Year'
+			dataType: string
+			lineageTag: 8846a15e-35ec-4ef3-bf70-155266f93967
+			summarizeBy: none
+			sourceColumn: Year Week Of Year
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column FiscalWeekKey
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: aae48957-9497-403e-b85b-b0ddafe99599
+			summarizeBy: count
+			sourceColumn: FiscalWeekKey
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column Year
+			dataType: int64
+			formatString: 0
+			lineageTag: ebcf1ad0-b2ef-49e0-b865-a857bfbe50cf
+			summarizeBy: sum
+			sourceColumn: Year
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column RelativeFiscalPeriod
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: cc88827f-27e9-4cf2-a86b-074249b2dcf6
+			summarizeBy: sum
+			sourceColumn: RelativeFiscalPeriod
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column RelativeFiscalQuarter
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: 96606755-4d53-417e-be5a-7995808cde5c
+			summarizeBy: sum
+			sourceColumn: RelativeFiscalQuarter
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column RelativeFiscalWeek
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: be398807-0e4c-4850-87dd-d1e1881b00a0
+			summarizeBy: sum
+			sourceColumn: RelativeFiscalWeek
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column RelativeFiscalYear
+			dataType: int64
+			isHidden
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: 9dd5846d-32b8-4a17-ade8-cdb7be9bc4d6
+			summarizeBy: sum
+			sourceColumn: RelativeFiscalYear
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column RelativeMonth
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: 6c71c1c3-ad78-47d9-8ad4-1545ec8f9e47
+			summarizeBy: sum
+			sourceColumn: RelativeMonth
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column RelativeQuarter
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: 9345aa91-7a8a-47bc-a94d-926d8d6f0dc8
+			summarizeBy: sum
+			sourceColumn: RelativeQuarter
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column RelativeWeek
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: a4ece85f-4356-4aa5-aa27-b61c7cda1f59
+			summarizeBy: sum
+			sourceColumn: RelativeWeek
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column RelativeYear
+			dataType: int64
+			isHidden
+			formatString: 0
+			lineageTag: be087e8d-aaaa-4ae2-8991-271988fed403
+			summarizeBy: sum
+			sourceColumn: RelativeYear
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES","PERF_UNUSED_COLUMNS"]}
+
+		column MonthName1 = IF('Date'[Year] = 'Date'[Fiscal Year],'Date'[Month Abbr],'Date'[Month Abbr] & "‎")
+			lineageTag: 9aa50f36-0a8d-46ed-8621-43b536cec57d
+			summarizeBy: none
+			sortByColumn: 'Fiscal month'
+
+			changedProperty = SortByColumn
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Fiscal month' = IF('Date'[Year] = 'Date'[Fiscal Year],MONTH('Date'[Date]),0)
+			formatString: 0
+			displayFolder: Fiscal
+			lineageTag: 45883514-3339-4754-8d17-1e0d16868d25
+			summarizeBy: sum
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
+		column 'Month Sorting'
+			dataType: string
+			lineageTag: c301373f-14f4-4ed3-bd31-12f21b66e978
+			summarizeBy: none
+			sourceColumn: Month Sorting
+			sortByColumn: 'Month AbbrKey'
+
+			changedProperty = SortByColumn
+
+			annotation SummarizationSetBy = Automatic
+
+		column 'Fiscal Week Viz'
+			dataType: double
+			lineageTag: 147e3674-5734-40b3-9c32-7f5101930179
+			summarizeBy: sum
+			sourceColumn: Fiscal Week Viz
+
+			annotation SummarizationSetBy = Automatic
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		partition Date = m
+			mode: import
+			queryGroup: Dimensions
+			source = ```
+					let
+					
+					SQL_DimDateQuery =
+					
+					"
+					SELECT
+					        DateTable.datename            AS `Date Name`             ,
+					        DateTable.fulldate            AS `Date`                  ,
+					        DateTable.dayofweek           AS `DayNameOfWeekKey`      ,
+					        DateTable.dayofmonth          AS `Day Of Month`          ,
+					        DateTable.daynameofweek       AS `Day Name Of Week`      ,
+					        DateTable.daynameabbreviation AS `Day Of Week Abbr`      ,
+					        DateTable.dimdatekey          AS `DimDateKey`            ,
+					        DateTable.fiscalyearperiod    AS `FiscalYearPeriodKey`   ,
+					        DateTable.fiscalperiodname    AS `Fiscal Period`    ,
+					        DateTable.fiscalperiod  AS `PeriodSortingKey` ,
+					        CONCAT(DateTable.monthofyear, '/',DateTable.dayofmonth, ' ',DateTable.daynameabbreviation)   AS `Date Display`    ,
+					        CONCAT(DateTable.fiscalyear, ' - ',DateTable.fiscalperiodname)    AS `Fiscal Year and Period`    ,
+					        CASE
+					        WHEN
+					                DateTable.fiscalperiodage = 0
+					        THEN
+					                'Current Period'
+					        WHEN
+					                DateTable.fiscalperiodage = 1
+					        THEN
+					                'Last Period'
+					        ELSE
+					                CONCAT ( DateTable.fiscalyear ,' - ' ,DateTable.fiscalperiodname )
+					        END                           AS `Fiscal Year and Period Name` ,
+					        CASE
+					        WHEN
+					                DateTable.fiscalperiodage = 0
+					        THEN
+					                'Current Period'
+					        WHEN
+					                DateTable.fiscalperiodage = 1
+					        THEN
+					                'Last Period'
+					        ELSE
+					                'Fiscal Calendar'
+					        END                           AS `Calendar Period` ,
+					        CONCAT ('P' ,DateTable.fiscalperiod ) AS `Fiscal Period Short Name`,
+					        CONCAT (DateTable.fiscalyear, ' - P' ,DateTable.fiscalperiod ) AS `Fiscal Year and Period Short Name`,
+					        DateTable.fiscalyearquarter   AS `FiscalYearQuarterKey`  ,
+					        DateTable.fiscalquartername   AS `Fiscal Quarter`   ,
+					        DateTable.fiscalyearweek      AS `FiscalYearWeekKey`     ,
+					        DateTable.fiscalweekname      AS `Fiscal Week`      ,
+					        DateTable.fiscalweekname + REPEAT('‏‏‎ ‎',22) AS `Fiscal Week Viz`,
+					        DateTable.fiscalyear          AS `Fiscal Year`           ,
+					        --DateTable.monthabbreviation          AS `Month Sorting`           ,
+					        CASE
+					        WHEN
+					                DateTable.year  <= DateTable.fiscalyear
+					        THEN
+					                DateTable.monthabbreviation
+					        ELSE   
+					                DateTable.monthabbreviation + '‏‏‎ ‎'
+					        END                           AS `Month Sorting`        ,
+					        --CASE
+					        --WHEN
+					        --        DateTable.year  = DateTable.fiscalyear
+					        --THEN
+					        --        DateTable.monthabbreviation
+					        --ELSE   
+					        --        DateTable.monthabbreviation + '‏‏‎ ‎'
+					        --END                           AS `Month Sorting`        ,
+					        DateTable.monthofyear         AS `Month AbbrKey`         ,
+					        DateTable.monthabbreviation   AS `Month Abbr`            ,
+					        DateTable.monthname           AS `Month Name`            ,
+					        DateTable.payperiodname       AS `Pay Period Name`       ,
+					        DateTable.payperiod           AS `PayPeriodKey`          ,
+					        DateTable.payrollyearweek     AS `PayrollYearWeekKey`    ,
+					        DateTable.payrollweekname     AS `Payroll Year Week`     ,
+					        DateTable.payrollyear         AS `Payroll Year`          ,
+					        DateTable.yearmonth           AS `YearMonthKey`          ,
+					        DateTable.yearquarter         AS `YearQuarterKey`        ,
+					        DateTable.quartername         AS `Year Quarter`          ,
+					        DateTable.yearweekofmonth     AS `YearWeekOfMonthKey`    ,
+					        DateTable.weekofmonthname     AS `Year Week Of Month`    ,
+					        DateTable.yearweekofyear      AS `YearWeekOfYearKey`     ,
+					        DateTable.weekofyearname      AS `Year Week Of Year`     ,
+					        DateTable.fiscalweek          AS `FiscalWeekKey`           ,
+					        DateTable.year                AS `Year`                  ,
+					        DateTable.fiscalperiodage     AS `RelativeFiscalPeriod`   ,
+					        DateTable.fiscalquarterage    AS `RelativeFiscalQuarter` ,
+					        DateTable.fiscalweekage       AS `RelativeFiscalWeek`    ,
+					        DateTable.fiscalyearage       AS `RelativeFiscalYear`    ,
+					        DateTable.calendarmonthage    AS `RelativeMonth`         ,
+					        DateTable.calendarquarterage  AS `RelativeQuarter`       ,
+					        DateTable.calendarweekage     AS `RelativeWeek`          ,
+					        DateTable.calendaryearage     AS `RelativeYear`
+					From
+					        " & Dim_Catalog & "." & Dim_Schema & ".vwdimdate AS DateTable
+					
+					where
+					        fiscalyearage >=" & CalendarFirstYear &"
+					and     fiscalyearage <= " & CalendarLastYear  
+					,
+					    Source = Value.NativeQuery(Databricks.Catalogs(ServerHostName, HTTPPath, [Catalog=DefaultCatalog, Database=null, EnableAutomaticProxyDiscovery=null]){[Name=Dim_Catalog,Kind="Database"]}[Data], SQL_DimDateQuery, null, [EnableFolding=true])
+					in
+					    Source
+					```
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+
+		annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["LAYOUT_COLUMNS_HIERARCHIES_DF","TRANSLATE_HIDEABLE_OBJECT_NAMES"]}
+
